@@ -9,7 +9,7 @@ services:
       - "3000:3000"
     environment:
       - PORT=3000
-      - DB_HOST=database  # Nombre del servicio de base de datos
+      - DB_HOST=database
       - DB_USER=postgres
       - DB_PASSWORD=password123
       - DB_NAME=proyecto_db
@@ -30,6 +30,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql  # Archivo de inicialización
     networks:
       - proyecto-network
 
@@ -46,11 +47,9 @@ services:
     networks:
       - proyecto-network
 
-# Red para conectar los servicios
 networks:
   proyecto-network:
     driver: bridge
 
-# Volumen para persistencia de la base de datos
 volumes:
   postgres_data:
