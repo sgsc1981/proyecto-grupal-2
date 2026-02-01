@@ -1,0 +1,15 @@
+# Docker
+**/node_modules/
+**/.env
+**/npm-debug.log
+**/yarn-error.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker builds
+**/dist/
+**/build/

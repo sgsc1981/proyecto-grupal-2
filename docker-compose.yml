@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # Servicio 1: Backend API
+  backend:
+    build: ./backend
+    container_name: backend-api
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DB_HOST=database  # Nombre del servicio de base de datos
+      - DB_USER=postgres
+      - DB_PASSWORD=password123
+      - DB_NAME=proyecto_db
+    depends_on:
+      - database
+    networks:
+      - proyecto-network
+
+  # Servicio 2: Base de datos (PostgreSQL)
+  database:
+    image: postgres:15-alpine
+    container_name: proyecto-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password123
+      - POSTGRES_DB=proyecto_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - proyecto-network
+
+  # Servicio 3: Frontend Web (servido por Nginx)
+  frontend:
+    image: nginx:alpine
+    container_name: frontend-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    depends_on:
+      - backend
+    networks:
+      - proyecto-network
+
+# Red para conectar los servicios
+networks:
+  proyecto-network:
+    driver: bridge
+
+# Volumen para persistencia de la base de datos
+volumes:
+  postgres_data:

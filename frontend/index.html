@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Docker - Frontend</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .endpoint {
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Proyecto Grupal 2 - Docker</h1>
+        <p>Frontend consumiendo el backend API</p>
+        
+        <div class="endpoint">
+            <h3>Endpoints del Backend:</h3>
+            <button onclick="testHealth()">Probar /health</button>
+            <button onclick="testData()">Probar /data</button>
+            <button onclick="testInfo()">Probar /info</button>
+        </div>
+
+        <div>
+            <h3>Resultado:</h3>
+            <div id="result">Haz clic en un botón para probar el backend.</div>
+        </div>
+    </div>
+
+    <script>
+        const backendUrl = 'http://localhost:3000';
+        const resultDiv = document.getElementById('result');
+
+        async function testHealth() {
+            try {
+                const response = await fetch(`${backendUrl}/health`);
+                const data = await response.json();
+                resultDiv.innerHTML = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultDiv.innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        async function testData() {
+            try {
+                const response = await fetch(`${backendUrl}/data`);
+                const data = await response.json();
+                resultDiv.innerHTML = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultDiv.innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        async function testInfo() {
+            try {
+                const response = await fetch(`${backendUrl}/info`);
+                const data = await response.json();
+                resultDiv.innerHTML = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultDiv.innerHTML = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
