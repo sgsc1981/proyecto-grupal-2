@@ -10,6 +10,8 @@ Sistema de 3 servicios independientes implementados con Docker y Docker Compose,
 
 Servicio 1: Backend API
 
+### Jean Pierre Guadalupe Macias
+
 Servicio 2: Base de Datos
 
 ### Janela Abigail Reyes Sánchez
@@ -492,3 +494,4 @@ docker-compose up --build
 # 5. Limpiar recursos
 docker-compose down -v
 ```
+
